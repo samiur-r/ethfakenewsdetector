@@ -3,6 +3,7 @@ import React, { Component } from "react";
 
 // Components
 import Navbar from "../Navbar/Navigation";
+import NavbarAdmin from "../Navbar/NavigationAdmin";
 import NotInit from "../NotInit";
 
 // CSS
@@ -141,14 +142,14 @@ export default class Registration extends Component {
     if (!this.state.web3) {
       return (
         <>
-          <Navbar isAdmin={this.state.isAdmin} />
+          {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
           <center>Loading Web3, accounts, and contract...</center>
         </>
       );
     }
     return (
       <>
-        <Navbar isAdmin={this.state.isAdmin} />
+        {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
         {!this.state.isElStarted && !this.state.isElEnded ? (
           <NotInit />
         ) : (
@@ -162,33 +163,33 @@ export default class Registration extends Component {
               <div className="container-item">
                 <form>
                   <div className="div-li">
-                    <label className={'label-r'}>
+                    <label className={"label-r"}>
                       Account Address
                       <input
-                        className={'input-r'}
+                        className={"input-r"}
                         type="text"
                         value={this.state.account}
-                        style={{ width: '400px' }}
-                      />{' '}
+                        style={{ width: "400px" }}
+                      />{" "}
                     </label>
                   </div>
                   <div className="div-li">
-                    <label className={'label-r'}>
+                    <label className={"label-r"}>
                       Name
                       <input
-                        className={'input-r'}
+                        className={"input-r"}
                         type="text"
                         placeholder="eg. Anis"
                         value={this.state.evaluatorName}
                         onChange={this.updateEvaluatorName}
-                      />{' '}
+                      />{" "}
                     </label>
                   </div>
                   <div className="div-li">
-                    <label className={'label-r'}>
-                      Phone number <span style={{ color: 'tomato' }}>*</span>
+                    <label className={"label-r"}>
+                      Phone number <span style={{ color: "tomato" }}>*</span>
                       <input
-                        className={'input-r'}
+                        className={"input-r"}
                         type="number"
                         placeholder="eg. 0179400000"
                         value={this.state.evaluatorPhone}
@@ -197,10 +198,10 @@ export default class Registration extends Component {
                     </label>
                   </div>
                   <p className="note">
-                    <span style={{ color: 'tomato' }}> Note: </span>
-                    <br /> Correctly fill up your Account address, name and
-                    phone number Make sure your account address and Phone number
-                    are correct.
+                    <span style={{ color: "tomato" }}> Note: </span>
+                    <br /> Correctly fill up your Account address,
+                    name and phone number Make sure your account address and Phone number are
+                    correct.
                   </p>
                   <button
                     className="btn-add"
@@ -211,8 +212,8 @@ export default class Registration extends Component {
                     onClick={this.registerAsEvaluator}
                   >
                     {this.state.currentEvaluator.isRegistered
-                      ? 'Update'
-                      : 'Register'}
+                      ? "Update"
+                      : "Register"}
                   </button>
                 </form>
               </div>
@@ -222,7 +223,7 @@ export default class Registration extends Component {
               style={{
                 borderTop: this.state.currentEvaluator.isRegistered
                   ? null
-                  : '1px solid',
+                  : "1px solid",
               }}
             >
               {loadCurrentEvaluator(
@@ -233,7 +234,7 @@ export default class Registration extends Component {
             {this.state.isAdmin ? (
               <div
                 className="container-main"
-                style={{ borderTop: '1px solid' }}
+                style={{ borderTop: "1px solid" }}
               >
                 <small>TotalEvaluators: {this.state.evaluators.length}</small>
                 {loadAllEvaluators(this.state.evaluators)}

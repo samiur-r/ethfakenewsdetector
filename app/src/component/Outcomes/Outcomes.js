@@ -1,17 +1,18 @@
 // Node modules
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 // Components
-import Navbar from '../Navbar/Navigation';
-import NotInit from '../NotInit';
+import Navbar from "../Navbar/Navigation";
+import NavbarAdmin from "../Navbar/NavigationAdmin";
+import NotInit from "../NotInit";
 
 // Contract
-import getWeb3 from '../../getWeb3';
-import newsDetection from '../../contracts/newsDetection.json';
+import getWeb3 from "../../getWeb3";
+import newsDetection from "../../contracts/newsDetection.json";
 
 // CSS
-import './Outcomes.css';
+import "./Outcomes.css";
 
 export default class Result extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ export default class Result extends Component {
   componentDidMount = async () => {
     // refreshing once
     if (!window.location.hash) {
-      window.location = window.location + '#loaded';
+      window.location = window.location + "#loaded";
       window.location.reload();
     }
     try {
@@ -50,11 +51,7 @@ export default class Result extends Component {
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
-      this.setState({
-        web3,
-        newsDetectionInstance: instance,
-        account: accounts[0],
-      });
+      this.setState({ web3, newsDetectionInstance: instance, account: accounts[0] });
 
       // Get total number of newss
       const newsCount = await this.state.newsDetectionInstance.methods
@@ -63,13 +60,9 @@ export default class Result extends Component {
       this.setState({ newsCount: newsCount });
 
       // Get start and end values
-      const start = await this.state.newsDetectionInstance.methods
-        .getStart()
-        .call();
+      const start = await this.state.newsDetectionInstance.methods.getStart().call();
       this.setState({ isElStarted: start });
-      const end = await this.state.newsDetectionInstance.methods
-        .getEnd()
-        .call();
+      const end = await this.state.newsDetectionInstance.methods.getEnd().call();
       this.setState({ isElEnded: end });
 
       // Loadin newss detials
@@ -87,9 +80,7 @@ export default class Result extends Component {
       this.setState({ newss: this.state.newss });
 
       // Admin account and verification
-      const admin = await this.state.newsDetectionInstance.methods
-        .getAdmin()
-        .call();
+      const admin = await this.state.newsDetectionInstance.methods.getAdmin().call();
       if (this.state.account === admin) {
         this.setState({ isAdmin: true });
       }
@@ -106,7 +97,7 @@ export default class Result extends Component {
     if (!this.state.web3) {
       return (
         <>
-          <Navbar isAdmin={this.state.isAdmin} />
+          {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
           <center>Loading Web3, accounts, and contract...</center>
         </>
       );
@@ -114,7 +105,7 @@ export default class Result extends Component {
 
     return (
       <>
-        <Navbar isAdmin={this.state.isAdmin} />
+        {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
         <br />
         <div>
           {!this.state.isElStarted && !this.state.isElEnded ? (
@@ -123,14 +114,12 @@ export default class Result extends Component {
             <div className="container-item attention">
               <center>
                 <h3>The news Detection is being conducted at the movement.</h3>
-                <p>
-                  Outcome will be displayed once the newsDetection has ended.
-                </p>
+                <p>Outcome will be displayed once the newsDetection has ended.</p>
                 <p>Go ahead and cast your vote for authentic one.</p>
                 <br />
                 <Link
                   to="/Voting"
-                  style={{ color: 'black', textDecoration: 'underline' }}
+                  style={{ color: "black", textDecoration: "underline" }}
                 >
                   Voting Page
                 </Link>
@@ -193,7 +182,7 @@ export function displayOutcomes(newss) {
       {newss.length > 0 ? (
         <div className="container-main">{displayWinner(newss)}</div>
       ) : null}
-      <div className="container-main" style={{ borderTop: '1px solid' }}>
+      <div className="container-main" style={{ borderTop: "1px solid" }}>
         <h2>Outcomes</h2>
         <small>Total news: {newss.length}</small>
         {newss.length < 1 ? (
@@ -214,7 +203,7 @@ export function displayOutcomes(newss) {
             </div>
             <div
               className="container-item"
-              style={{ border: '1px solid black' }}
+              style={{ border: "1px solid black" }}
             >
               <center>That is all.</center>
             </div>

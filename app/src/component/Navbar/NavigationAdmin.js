@@ -10,25 +10,27 @@ import {
   UsersIcon,
 } from '@heroicons/react/outline';
 
-const Navigation = () => {
+const NavigationAdmin = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
 
   const navigation = [
-    {
-      name: 'Registration',
-      href: '/Registration',
-      icon: UsersIcon,
-      uid: 0,
-    },
-    { name: 'Voting', href: '/Voting', icon: FolderIcon, uid: 1 },
-    {
-      name: 'Outcomes',
-      href: '/Outcomes',
-      icon: ChartBarIcon,
-      uid: 2,
-    },
-  ];
+        {
+          name: 'Authenticate Evaluators',
+          href: '/Verification',
+          icon: UsersIcon,
+          uid: 0,
+        },
+        { name: 'Add News', href: '/AddNews', icon: FolderIcon, uid: 1 },
+        {
+          name: 'Evaluator Registration',
+          href: '/Registration',
+          icon: ChartBarIcon,
+          uid: 2,
+        },
+        { name: 'Verify News', href: '/Voting', icon: CalendarIcon, uid: 3 },
+        { name: 'Outcome', href: '/Outcomes', icon: InboxIcon, uid: 4 },
+      ]
 
   const handleSetActiveTab = () => {
     const pageIndex = navigation.findIndex(
@@ -76,7 +78,7 @@ const Navigation = () => {
           <h3 className="text-right text-4xl font-semibold p-5 border-b border-double ">
             <Link to="/">
               <i className="fab fa-hive text-teal-700" />{' '}
-              <span className="text-teal-700">Home</span>
+              <span className="text-teal-700">Editor</span>
             </Link>
           </h3>
         </div>
@@ -122,4 +124,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default NavigationAdmin;

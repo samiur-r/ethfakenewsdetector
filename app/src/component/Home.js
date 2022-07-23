@@ -1,20 +1,21 @@
 // Node modules
-import React, { Component } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 // Components
-import Navbar from './Navbar/Navigation';
-import UserHome from './UserHome';
-import StartEnd from './StartEnd';
-import DetectionStatus from './DetectionStatus';
+import Navbar from "./Navbar/Navigation";
+import NavbarAdmin from "./Navbar/NavigationAdmin";
+import UserHome from "./UserHome";
+import StartEnd from "./StartEnd";
+import DetectionStatus from "./DetectionStatus";
 
 // Contract
-import getWeb3 from '../getWeb3';
-import newsDetection from '../contracts/newsDetection.json';
+import getWeb3 from "../getWeb3";
+import newsDetection from "../contracts/newsDetection.json";
 
 // CSS
-import './Home.css';
+import "./Home.css";
 
 // const buttonRef = React.createRef();
 export default class Home extends Component {
@@ -34,7 +35,7 @@ export default class Home extends Component {
   // refreshing once
   componentDidMount = async () => {
     if (!window.location.hash) {
-      window.location = window.location + '#loaded';
+      window.location = window.location + "#loaded";
       window.location.reload();
     }
     try {
@@ -60,21 +61,15 @@ export default class Home extends Component {
         account: accounts[0],
       });
 
-      const admin = await this.state.newsDetectionInstance.methods
-        .getAdmin()
-        .call();
+      const admin = await this.state.newsDetectionInstance.methods.getAdmin().call();
       if (this.state.account === admin) {
         this.setState({ isAdmin: true });
       }
 
       // Get newsDetection start and end values
-      const start = await this.state.newsDetectionInstance.methods
-        .getStart()
-        .call();
+      const start = await this.state.newsDetectionInstance.methods.getStart().call();
       this.setState({ elStarted: start });
-      const end = await this.state.newsDetectionInstance.methods
-        .getEnd()
-        .call();
+      const end = await this.state.newsDetectionInstance.methods.getEnd().call();
       this.setState({ elEnded: end });
 
       // Getting newsDetection details from the contract
@@ -88,12 +83,14 @@ export default class Home extends Component {
       const newsdetectionTitle = await this.state.newsDetectionInstance.methods
         .getnewsDetectionTitle()
         .call();
+  
 
       this.setState({
         elDetails: {
           adminName: adminName,
           adminEmail: adminEmail,
           newsdetectionTitle: newsdetectionTitle,
+
         },
       });
     } catch (error) {
@@ -115,9 +112,9 @@ export default class Home extends Component {
   registernewsDetection = async (data) => {
     await this.state.newsDetectionInstance.methods
       .setnewsDetectionDetails(
-        data.adminFName.toLowerCase() + ' ' + data.adminLName.toLowerCase(),
+        data.adminFName.toLowerCase() + " " + data.adminLName.toLowerCase(),
         data.adminEmail.toLowerCase(),
-        data.newsdetectionTitle.toLowerCase()
+        data.newsdetectionTitle.toLowerCase(),
       )
       .send({ from: this.state.account, gas: 1000000 });
     window.location.reload();
@@ -127,64 +124,62 @@ export default class Home extends Component {
     if (!this.state.web3) {
       return (
         <>
-          <Navbar isAdmin={this.state.isAdmin} />
+          <Navbar />
           <center>Loading Web3, accounts, and contract...</center>
         </>
       );
     }
     return (
       <>
-        <Navbar isAdmin={this.state.isAdmin} />
-        <div>
-          <div className="container-main">
-            <div className="container-item center-items info">
-              Your Account: {this.state.account}
-            </div>
-            {!this.state.elStarted & !this.state.elEnded ? (
-              <div className="container-item info">
-                <center>
-                  <h3>The news Detection has not been initialize.</h3>
-                  {this.state.isAdmin ? (
-                    <p>Set up the news Detection.</p>
-                  ) : (
-                    <p>Please wait..</p>
-                  )}
-                </center>
-              </div>
-            ) : null}
+        {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
+        <div className="container-main">
+          <div className="container-item center-items info">
+            Your Account: {this.state.account}
           </div>
-          {this.state.isAdmin ? (
-            <>
-              <this.renderAdminHome />
-            </>
-          ) : this.state.elStarted ? (
-            <>
-              <UserHome el={this.state.elDetails} />
-            </>
-          ) : !this.state.isElStarted && this.state.isElEnded ? (
-            <>
-              <div className="container-item attention">
-                <center>
-                  <h3>The news Detection ended.</h3>
-                  <br />
-                  <Link
-                    to="/Outcomes"
-                    style={{ color: 'black', textDecoration: 'underline' }}
-                  >
-                    See Outcomes
-                  </Link>
-                </center>
-              </div>
-            </>
+          {!this.state.elStarted & !this.state.elEnded ? (
+            <div className="container-item info">
+              <center>
+                <h3>The news Detection has not been initialize.</h3>
+                {this.state.isAdmin ? (
+                  <p>Set up the news Detection.</p>
+                ) : (
+                  <p>Please wait..</p>
+                )}
+              </center>
+            </div>
           ) : null}
         </div>
+        {this.state.isAdmin ? (
+          <>
+            <this.renderAdminHome />
+          </>
+        ) : this.state.elStarted ? (
+          <>
+            <UserHome el={this.state.elDetails} />
+          </>
+        ) : !this.state.isElStarted && this.state.isElEnded ? (
+          <>
+            <div className="container-item attention">
+              <center>
+                <h3>The news Detection ended.</h3>
+                <br />
+                <Link
+                  to="/Outcomes"
+                  style={{ color: "black", textDecoration: "underline" }}
+                >
+                  See Outcomes
+                </Link>
+              </center>
+            </div>
+          </>
+        ) : null}
       </>
     );
   }
 
   renderAdminHome = () => {
     const EMsg = (props) => {
-      return <span style={{ color: 'tomato' }}>{props.msg}</span>;
+      return <span style={{ color: "tomato" }}>{props.msg}</span>;
     };
 
     const AdminHome = () => {
@@ -210,13 +205,13 @@ export default class Home extends Component {
                   <div className="container-item center-items">
                     <div>
                       <label className="label-home">
-                        Full Name{' '}
+                        Full Name{" "}
                         {errors.adminFName && <EMsg msg="*required" />}
                         <input
                           className="input-home"
                           type="text"
                           placeholder="First Name"
-                          {...register('adminFName', {
+                          {...register("adminFName", {
                             required: true,
                           })}
                         />
@@ -224,12 +219,12 @@ export default class Home extends Component {
                           className="input-home"
                           type="text"
                           placeholder="Last Name"
-                          {...register('adminLName')}
+                          {...register("adminLName")}
                         />
                       </label>
 
                       <label className="label-home">
-                        Email{' '}
+                        Email{" "}
                         {errors.adminEmail && (
                           <EMsg msg={errors.adminEmail.message} />
                         )}
@@ -237,11 +232,11 @@ export default class Home extends Component {
                           className="input-home"
                           placeholder="eg. you@example.com"
                           name="adminEmail"
-                          {...register('adminEmail', {
-                            required: '*Required',
+                          {...register("adminEmail", {
+                            required: "*Required",
                             pattern: {
                               value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, // email validation using RegExp
-                              message: '*Invalid',
+                              message: "*Invalid",
                             },
                           })}
                         />
@@ -255,13 +250,13 @@ export default class Home extends Component {
                   <div className="container-item center-items">
                     <div>
                       <label className="label-home">
-                        newsDetection Title{' '}
+                        newsDetection Title{" "}
                         {errors.newsdetectionTitle && <EMsg msg="*required" />}
                         <input
                           className="input-home"
                           type="text"
                           placeholder="eg. School newsDetection"
-                          {...register('newsdetectionTitle', {
+                          {...register("newsdetectionTitle", {
                             required: true,
                           })}
                         />

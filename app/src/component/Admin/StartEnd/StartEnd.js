@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
-import Navbar from './Navbar/Navigation';
+import Navbar from "../../Navbar/Navigation";
+import NavbarAdmin from "../../Navbar/NavigationAdmin";
 
 import AdminOnly from "../../AdminOnly";
 
@@ -88,7 +89,7 @@ export default class StartEnd extends Component {
     if (!this.state.web3) {
       return (
         <>
-          <Navbar isAdmin={this.state.isAdmin} />
+          {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
           <center>Loading Web3, accounts, and contract...</center>
         </>
       );
@@ -96,14 +97,14 @@ export default class StartEnd extends Component {
     if (!this.state.isAdmin) {
       return (
         <>
-          <Navbar isAdmin={this.state.isAdmin} />
+          <Navbar />
           <AdminOnly page="Start and end newsDetection page." />
         </>
       );
     }
     return (
       <>
-        <Navbar isAdmin={this.state.isAdmin} />
+        <NavbarAdmin />
         {!this.state.elStarted & !this.state.elEnded ? (
           <div className="container-item info">
             <center>The newsDetection have never been initiated.</center>
@@ -115,7 +116,7 @@ export default class StartEnd extends Component {
             <>
               <div className="container-item">
                 <button onClick={this.startnewsDetection} className="start-btn">
-                  Start {this.state.elEnded ? 'Again' : null}
+                  Start {this.state.elEnded ? "Again" : null}
                 </button>
               </div>
               {this.state.elEnded ? (
@@ -141,8 +142,8 @@ export default class StartEnd extends Component {
             </>
           )}
           <div className="newsDetection-status">
-            <p>Started: {this.state.elStarted ? 'True' : 'False'}</p>
-            <p>Ended: {this.state.elEnded ? 'True' : 'False'}</p>
+            <p>Started: {this.state.elStarted ? "True" : "False"}</p>
+            <p>Ended: {this.state.elEnded ? "True" : "False"}</p>
           </div>
         </div>
       </>
