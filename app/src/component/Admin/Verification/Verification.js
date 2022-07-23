@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
-import Navbar from "../../Navbar/Navigation";
-import NavbarAdmin from "../../Navbar/NavigationAdmin";
+import Navbar from '../../Navbar/Navigation';
 
 import AdminOnly from "../../AdminOnly";
 
@@ -164,7 +163,7 @@ export default class Registration extends Component {
     if (!this.state.web3) {
       return (
         <>
-          {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
+          <Navbar isAdmin={this.state.isAdmin} />
           <center>Loading Web3, accounts, and contract...</center>
         </>
       );
@@ -172,14 +171,14 @@ export default class Registration extends Component {
     if (!this.state.isAdmin) {
       return (
         <>
-          <Navbar />
+          <Navbar isAdmin={this.state.isAdmin} />
           <AdminOnly page="Verification Page." />
         </>
       );
     }
     return (
       <>
-        <NavbarAdmin />
+        <Navbar isAdmin={this.state.isAdmin} />
         <div className="container-main">
           <h3>Verification</h3>
           <small>Total evaluators: {this.state.evaluators.length}</small>

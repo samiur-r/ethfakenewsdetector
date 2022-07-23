@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
-import Navbar from "../../Navbar/Navigation";
-import NavbarAdmin from "../../Navbar/NavigationAdmin";
+import Navbar from '../../Navbar/Navigation';
 
 import getWeb3 from "../../../getWeb3";
 import newsDetection from "../../../contracts/newsDetection.json";
@@ -100,7 +99,7 @@ export default class AddNews extends Component {
     if (!this.state.web3) {
       return (
         <>
-          {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
+          <Navbar isAdmin={this.state.isAdmin} />
           <center>Loading Web3, accounts, and contract...</center>
         </>
       );
@@ -108,23 +107,23 @@ export default class AddNews extends Component {
     if (!this.state.isAdmin) {
       return (
         <>
-          <Navbar />
+          <Navbar isAdmin={this.state.isAdmin} />
           <AdminOnly page="Add news Page." />
         </>
       );
     }
     return (
       <>
-        <NavbarAdmin />
+        <Navbar isAdmin={this.state.isAdmin} />
         <div className="container-main">
           <h2>Add a new news</h2>
           <small>Total newss: {this.state.newsCount}</small>
           <div className="container-item">
             <form className="form">
-              <label className={"label-ac"}>
+              <label className={'label-ac'}>
                 NewsPost
                 <input
-                  className={"input-ac"}
+                  className={'input-ac'}
                   type="text"
                   placeholder="eg. বৃষ্টির আগেই শেষ সাকিব–ঝড়"
                   value={this.state.newsPost}
@@ -135,7 +134,8 @@ export default class AddNews extends Component {
               <button
                 className="btn-add"
                 disabled={
-                  this.state.newsPost.length < 3 || this.state.newsPost.length > 100
+                  this.state.newsPost.length < 3 ||
+                  this.state.newsPost.length > 100
                 }
                 onClick={this.addNews}
               >

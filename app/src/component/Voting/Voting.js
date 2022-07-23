@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 // Components
 import Navbar from "../Navbar/Navigation";
-import NavbarAdmin from "../Navbar/NavigationAdmin";
 import NotInit from "../NotInit";
 
 // Contract
@@ -161,7 +160,7 @@ export default class Voting extends Component {
     if (!this.state.web3) {
       return (
         <>
-          {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
+          <Navbar isAdmin={this.state.isAdmin} />
           <center>Loading Web3, accounts, and contract...</center>
         </>
       );
@@ -169,7 +168,7 @@ export default class Voting extends Component {
 
     return (
       <>
-        {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
+        <Navbar isAdmin={this.state.isAdmin} />
         <div>
           {!this.state.isElStarted && !this.state.isElEnded ? (
             <NotInit />
@@ -180,14 +179,16 @@ export default class Voting extends Component {
                   this.state.currentEvaluator.hasVoted ? (
                     <div className="container-item success">
                       <div>
-                        <strong>You've casted your vote for authentic news.</strong>
+                        <strong>
+                          You've casted your vote for authentic news.
+                        </strong>
                         <p />
                         <center>
                           <Link
                             to="/Outcomes"
                             style={{
-                              color: "black",
-                              textDecoration: "underline",
+                              color: 'black',
+                              textDecoration: 'underline',
                             }}
                           >
                             See Outcomes
@@ -209,11 +210,14 @@ export default class Voting extends Component {
                 <>
                   <div className="container-item attention">
                     <center>
-                      <p>You're not registered as an evaluator. You have to register first.</p>
+                      <p>
+                        You're not registered as an evaluator. You have to
+                        register first.
+                      </p>
                       <br />
                       <Link
                         to="/Registration"
-                        style={{ color: "black", textDecoration: "underline" }}
+                        style={{ color: 'black', textDecoration: 'underline' }}
                       >
                         Registration Page
                       </Link>
@@ -233,7 +237,7 @@ export default class Voting extends Component {
                     {this.state.newss.map(this.renderNewss)}
                     <div
                       className="container-item"
-                      style={{ border: "1px solid black" }}
+                      style={{ border: '1px solid black' }}
                     >
                       <center>That is all news.</center>
                     </div>
@@ -249,7 +253,7 @@ export default class Voting extends Component {
                   <br />
                   <Link
                     to="/Outcomes"
-                    style={{ color: "black", textDecoration: "underline" }}
+                    style={{ color: 'black', textDecoration: 'underline' }}
                   >
                     See Outcomes
                   </Link>
