@@ -156,10 +156,11 @@ export default class Registration extends Component {
     return (
       <div className="md:ml-64 mt-10">
         {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
-        {!this.state.isElStarted && !this.state.isElEnded ? (
-          <NotInit />
-        ) : (
-          <div className="md:ml-64 mt-10 overflow-hidden">
+        {/* {
+				// !this.state.isElStarted && !this.state.isElEnded ? (
+        //   <NotInit />
+        // ) : ( */}
+          <div className="overflow-hidden">
             <div className="container-item bg-slate-700 text-sky-600">
               <p>Total registered evaluators: {this.state.evaluators.length}</p>
             </div>
