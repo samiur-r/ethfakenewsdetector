@@ -65,7 +65,7 @@ const NavigationAdmin = () => {
           <svg
             onClick={() => setShowSidebar(!showSidebar)}
             className="fixed md:hidden z-30 flex items-center cursor-pointer left-10 top-6"
-            fill="#0D9488"
+            fill="#1E88F7"
             viewBox="0 0 100 80"
             width="40"
             height="40"
@@ -84,10 +84,10 @@ const NavigationAdmin = () => {
       )}
 
       <div
-        className={`top-0 left-0 bg-cyan-600 py-5 text-white fixed h-full z-40 ease-in-out duration-300 ${
+        className={`top-0 left-0 bg-sky-600 py-5 text-white fixed h-full z-40 ease-in-out duration-300 ${
           showSidebar ? 'translate-x-0' : '-translate-x-[100vw]'
         }`}
-        style={{ minWidth: 300 }}
+        style={{ minWidth: 250 }}
       >
         <h3
           className={`text-3xl font-semibold text-white border-b border-double flex items-center justify-center pb-5 ${
@@ -98,11 +98,11 @@ const NavigationAdmin = () => {
             <i className="fab fa-hive" /> Editor{' '}
           </Link>
         </h3>
-        <div className="mt-10 p-5 flex flex-col">
+        <div className="mt-10 p-2 flex flex-col">
           {navigation.map((item, index) => (
             <div
               key={Math.random()}
-              className={`text-lg p-3 mt-2 ${
+              className={`text-md p-3 mt-2 ${
                 activeTab === index
                   ? 'bg-cyan-900 text-white'
                   : 'text-gray-300 hover:bg-cyan-700 hover:text-white'

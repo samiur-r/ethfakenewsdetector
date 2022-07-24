@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-import Home from "./component/Home";
+import Home from './component/Home';
 
-import Voting from "./component/Voting/Voting";
-import Outcomes from "./component/Outcomes/Outcomes";
-import Registration from "./component/Registration/Registration";
+import Voting from './component/Voting/Voting';
+import Outcomes from './component/Outcomes/Outcomes';
+import Registration from './component/Registration/Registration';
 
-import AddNews from "./component/Admin/AddNews/AddNews";
-import Verification from "./component/Admin/Verification/Verification";
-import test from "./component/test";
+import AddNews from './component/Admin/AddNews/AddNews';
+import Verification from './component/Admin/Verification/Verification';
+import test from './component/test';
 // import StartEnd from "./component/Admin/StartEnd/StartEnd";
 
 //import Footer from "./component/Footer/Footer         <Footer />";
 
-import "./App.css";
+import './App.css';
 
 export default class App extends Component {
   render() {
@@ -45,10 +45,10 @@ class NotFound extends Component {
           <p>
             The page your are looking for doesn't exist.
             <br />
-            Go to{" "}
+            Go to{' '}
             <Link
               to="/"
-              style={{ color: "black", textDecoration: "underline" }}
+              style={{ color: 'black', textDecoration: 'underline' }}
             >
               Home
             </Link>

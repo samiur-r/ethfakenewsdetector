@@ -134,7 +134,7 @@ export default class Home extends Component {
       );
     }
     return (
-      <>
+      <div className="md:ml-64 mt-10">
         {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
         <div
           className="flex items-center justify-center flex-col w-full m-auto p-10"
@@ -142,7 +142,7 @@ export default class Home extends Component {
         >
           <div className="rounded-md bg-emerald-500 p-4 w-full">
             <div className="flex">
-              <div className="ml-3">
+              <div className="ml-3 overflow-hidden">
                 <h3 className="text-lg font-medium text-white">
                   Your Account: {this.state.account}
                 </h3>
@@ -190,7 +190,7 @@ export default class Home extends Component {
             </div>
           </>
         ) : null}
-      </>
+      </div>
     );
   }
 
@@ -218,14 +218,14 @@ export default class Home extends Component {
               <div className="container-main">
                 {/* about-admin */}
                 <div className="about-admin">
-                  <h3>About Admin</h3>
-                  <div className="container-item center-items">
-                    <div>
-                      <label className="label-home">
+                  <h3 className="text-2xl text-white">About Admin</h3>
+                  <div className="center-items bg-slate-700 py-10 px-2 rounded-lg">
+                    <div className="w-full max-w-xs">
+                      <label className="label-home text-white">
                         Full Name{' '}
                         {errors.adminFName && <EMsg msg="*required" />}
                         <input
-                          className="input-home"
+                          className="bg-slate-900 shadow-md rounded p-5 block mt-2 w-full"
                           type="text"
                           placeholder="First Name"
                           {...register('adminFName', {
@@ -233,20 +233,20 @@ export default class Home extends Component {
                           })}
                         />
                         <input
-                          className="input-home"
+                          className="bg-slate-900 shadow-md rounded p-5 block mt-2 w-full"
                           type="text"
                           placeholder="Last Name"
                           {...register('adminLName')}
                         />
                       </label>
 
-                      <label className="label-home">
+                      <label className="label-home text-white">
                         Email{' '}
                         {errors.adminEmail && (
                           <EMsg msg={errors.adminEmail.message} />
                         )}
                         <input
-                          className="input-home"
+                          className="bg-slate-900 shadow-md rounded p-5 block mt-2 w-full"
                           placeholder="eg. you@example.com"
                           name="adminEmail"
                           {...register('adminEmail', {
@@ -262,15 +262,15 @@ export default class Home extends Component {
                   </div>
                 </div>
                 {/* about-news Detection */}
-                <div className="about-news Detection">
-                  <h3>About news Detection</h3>
-                  <div className="container-item center-items">
+                <div className="about-news Detection mt-5">
+                  <h3 className="text-2xl text-white">About news Detection</h3>
+                  <div className="container-item center-items bg-slate-700 py-10 px-2 rounded-lg">
                     <div>
-                      <label className="label-home">
+                      <label className="label-home text-white">
                         newsDetection Title{' '}
                         {errors.newsdetectionTitle && <EMsg msg="*required" />}
                         <input
-                          className="input-home"
+                          className="bg-slate-900 shadow-md rounded p-5 block mt-2 w-full"
                           type="text"
                           placeholder="eg. School newsDetection"
                           {...register('newsdetectionTitle', {

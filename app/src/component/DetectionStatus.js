@@ -5,7 +5,6 @@ const DetectionStatus = (props) => {
     padding: "11px",
     margin: "7px",
     width: "100%",
-    border: "1px solid tomato",
     marginLeft: "auto",
     marginRight: "auto",
     textAlign: "center",
@@ -18,12 +17,14 @@ const DetectionStatus = (props) => {
   return (
     <div
       className="container-main"
-      style={{ borderTop: "1px solid", marginTop: "0px" }}
+      style={{ borderTop: '1px solid', marginTop: '0px' }}
     >
-      <h3>NewsDetection Status</h3>
-      <div style={detectionStatus}>
-        <p>Started: {props.elStarted ? "True" : "False"}</p>
-        <p>Ended: {props.elEnded ? "True" : "False"}</p>
+      <h3 className="text-white text-lg">NewsDetection Status</h3>
+      <div className="border border-teal-600" style={detectionStatus}>
+        <p className="text-white">
+          Started: {props.elStarted ? 'True' : 'False'}
+        </p>
+        <p className="text-white">Ended: {props.elEnded ? 'True' : 'False'}</p>
       </div>
       <div className="container-item" />
     </div>
