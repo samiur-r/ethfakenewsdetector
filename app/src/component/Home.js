@@ -1,21 +1,21 @@
 // Node modules
-import React, { Component } from "react";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 // Components
-import Navbar from "./Navbar/Navigation";
-import NavbarAdmin from "./Navbar/NavigationAdmin";
-import UserHome from "./UserHome";
-import StartEnd from "./StartEnd";
-import DetectionStatus from "./DetectionStatus";
+import Navbar from './Navbar/Navigation';
+import NavbarAdmin from './Navbar/NavigationAdmin';
+import UserHome from './UserHome';
+import StartEnd from './StartEnd';
+import DetectionStatus from './DetectionStatus';
 
 // Contract
-import getWeb3 from "../getWeb3";
-import newsDetection from "../contracts/newsDetection.json";
+import getWeb3 from '../getWeb3';
+import newsDetection from '../contracts/newsDetection.json';
 
 // CSS
-import "./Home.css";
+import './Home.css';
 
 // const buttonRef = React.createRef();
 export default class Home extends Component {
@@ -35,7 +35,7 @@ export default class Home extends Component {
   // refreshing once
   componentDidMount = async () => {
     if (!window.location.hash) {
-      window.location = window.location + "#loaded";
+      window.location = window.location + '#loaded';
       window.location.reload();
     }
     try {
@@ -61,15 +61,21 @@ export default class Home extends Component {
         account: accounts[0],
       });
 
-      const admin = await this.state.newsDetectionInstance.methods.getAdmin().call();
+      const admin = await this.state.newsDetectionInstance.methods
+        .getAdmin()
+        .call();
       if (this.state.account === admin) {
         this.setState({ isAdmin: true });
       }
 
       // Get newsDetection start and end values
-      const start = await this.state.newsDetectionInstance.methods.getStart().call();
+      const start = await this.state.newsDetectionInstance.methods
+        .getStart()
+        .call();
       this.setState({ elStarted: start });
-      const end = await this.state.newsDetectionInstance.methods.getEnd().call();
+      const end = await this.state.newsDetectionInstance.methods
+        .getEnd()
+        .call();
       this.setState({ elEnded: end });
 
       // Getting newsDetection details from the contract
@@ -83,14 +89,12 @@ export default class Home extends Component {
       const newsdetectionTitle = await this.state.newsDetectionInstance.methods
         .getnewsDetectionTitle()
         .call();
-  
 
       this.setState({
         elDetails: {
           adminName: adminName,
           adminEmail: adminEmail,
           newsdetectionTitle: newsdetectionTitle,
-
         },
       });
     } catch (error) {
@@ -112,9 +116,9 @@ export default class Home extends Component {
   registernewsDetection = async (data) => {
     await this.state.newsDetectionInstance.methods
       .setnewsDetectionDetails(
-        data.adminFName.toLowerCase() + " " + data.adminLName.toLowerCase(),
+        data.adminFName.toLowerCase() + ' ' + data.adminLName.toLowerCase(),
         data.adminEmail.toLowerCase(),
-        data.newsdetectionTitle.toLowerCase(),
+        data.newsdetectionTitle.toLowerCase()
       )
       .send({ from: this.state.account, gas: 1000000 });
     window.location.reload();
@@ -132,20 +136,33 @@ export default class Home extends Component {
     return (
       <>
         {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
-        <div className="container-main">
-          <div className="container-item center-items info">
-            Your Account: {this.state.account}
+        <div
+          className="flex items-center justify-center flex-col w-full m-auto p-10"
+          style={{ maxWidth: 900 }}
+        >
+          <div className="rounded-md bg-emerald-500 p-4 w-full">
+            <div className="flex">
+              <div className="ml-3">
+                <h3 className="text-lg font-medium text-white">
+                  Your Account: {this.state.account}
+                </h3>
+              </div>
+            </div>
           </div>
           {!this.state.elStarted & !this.state.elEnded ? (
-            <div className="container-item info">
-              <center>
-                <h3>The news Detection has not been initialize.</h3>
-                {this.state.isAdmin ? (
-                  <p>Set up the news Detection.</p>
-                ) : (
-                  <p>Please wait..</p>
-                )}
-              </center>
+            <div className="rounded-md bg-teal-500 p-4 w-full mt-10">
+              <div className="flex">
+                <div className="ml-3">
+                  <h3 className="text-lg font-medium text-white">
+                    The news Detection has not been initialize.
+                    {this.state.isAdmin ? (
+                      <p>Set up the news Detection.</p>
+                    ) : (
+                      <p>Please wait..</p>
+                    )}
+                  </h3>
+                </div>
+              </div>
             </div>
           ) : null}
         </div>
@@ -165,7 +182,7 @@ export default class Home extends Component {
                 <br />
                 <Link
                   to="/Outcomes"
-                  style={{ color: "black", textDecoration: "underline" }}
+                  style={{ color: 'black', textDecoration: 'underline' }}
                 >
                   See Outcomes
                 </Link>
@@ -179,7 +196,7 @@ export default class Home extends Component {
 
   renderAdminHome = () => {
     const EMsg = (props) => {
-      return <span style={{ color: "tomato" }}>{props.msg}</span>;
+      return <span style={{ color: 'tomato' }}>{props.msg}</span>;
     };
 
     const AdminHome = () => {
@@ -205,13 +222,13 @@ export default class Home extends Component {
                   <div className="container-item center-items">
                     <div>
                       <label className="label-home">
-                        Full Name{" "}
+                        Full Name{' '}
                         {errors.adminFName && <EMsg msg="*required" />}
                         <input
                           className="input-home"
                           type="text"
                           placeholder="First Name"
-                          {...register("adminFName", {
+                          {...register('adminFName', {
                             required: true,
                           })}
                         />
@@ -219,12 +236,12 @@ export default class Home extends Component {
                           className="input-home"
                           type="text"
                           placeholder="Last Name"
-                          {...register("adminLName")}
+                          {...register('adminLName')}
                         />
                       </label>
 
                       <label className="label-home">
-                        Email{" "}
+                        Email{' '}
                         {errors.adminEmail && (
                           <EMsg msg={errors.adminEmail.message} />
                         )}
@@ -232,11 +249,11 @@ export default class Home extends Component {
                           className="input-home"
                           placeholder="eg. you@example.com"
                           name="adminEmail"
-                          {...register("adminEmail", {
-                            required: "*Required",
+                          {...register('adminEmail', {
+                            required: '*Required',
                             pattern: {
                               value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, // email validation using RegExp
-                              message: "*Invalid",
+                              message: '*Invalid',
                             },
                           })}
                         />
@@ -250,13 +267,13 @@ export default class Home extends Component {
                   <div className="container-item center-items">
                     <div>
                       <label className="label-home">
-                        newsDetection Title{" "}
+                        newsDetection Title{' '}
                         {errors.newsdetectionTitle && <EMsg msg="*required" />}
                         <input
                           className="input-home"
                           type="text"
                           placeholder="eg. School newsDetection"
-                          {...register("newsdetectionTitle", {
+                          {...register('newsdetectionTitle', {
                             required: true,
                           })}
                         />

@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Navbar.css';
 
 import {
-  CalendarIcon,
   ChartBarIcon,
   FolderIcon,
-  InboxIcon,
   UsersIcon,
 } from '@heroicons/react/outline';
 
@@ -54,7 +51,7 @@ const Navigation = () => {
     <>
       {showSidebar ? (
         <button
-          className="flex md:hidden text-4xl text-teal-700 items-center cursor-pointer fixed right-5 top-5 z-50"
+          className="flex md:hidden text-4xl text-cyan-700 items-center cursor-pointer fixed right-5 top-5 z-50"
           onClick={() => setShowSidebar(!showSidebar)}
         >
           x
@@ -75,41 +72,42 @@ const Navigation = () => {
           </svg>
           <h3 className="text-right text-4xl font-semibold p-5 border-b border-double ">
             <Link to="/">
-              <i className="fab fa-hive text-teal-700" />{' '}
-              <span className="text-teal-700">Home</span>
+              <i className="fab fa-hive text-cyan-700" />{' '}
+              <span className="text-cyan-700">Home</span>
             </Link>
           </h3>
         </div>
       )}
 
       <div
-        className={`top-0 left-0 bg-teal-600 py-10 text-white fixed h-full z-40 ease-in-out duration-300 ${
+        className={`top-0 left-0 bg-cyan-600 py-5 text-white fixed h-full z-40 ease-in-out duration-300 ${
           showSidebar ? 'translate-x-0' : '-translate-x-[100vw]'
         }`}
+        style={{ minWidth: 300 }}
       >
         <h3
-          className={`-mt-5 pl-10 text-4xl font-semibold text-white border-b border-double ${
+          className={`text-3xl font-semibold text-white border-b border-double pb-5 flex items-center justify-center ${
             showSidebar ? 'block' : 'hidden'
           }`}
         >
           <Link to="/">
-            <i className="fab fa-hive" /> Editor{' '}
+            <i className="fab fa-hive" /> Home{' '}
           </Link>
         </h3>
         <div className="mt-10 p-5 flex flex-col">
           {navigation.map((item, index) => (
             <div
               key={Math.random()}
-              className={`text-xl p-5 ${
+              className={`text-xl p-3 mt-2 ${
                 activeTab === index
-                  ? 'bg-teal-900 text-white'
-                  : 'text-gray-300 hover:bg-teal-700 hover:text-white'
+                  ? 'bg-cyan-900 text-white'
+                  : 'text-gray-300 hover:bg-cyan-700 hover:text-white'
               }`}
               onClick={handleSetActiveTab}
             >
               <Link to={item.href} className="flex">
                 <item.icon
-                  className="mr-4 flex-shrink-0 h-6 w-6 text-teal-300"
+                  className="mr-4 flex-shrink-0 h-6 w-6 text-cyan-300"
                   aria-hidden="true"
                 />
                 {item.name}
