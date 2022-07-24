@@ -1,6 +1,6 @@
 # Eth Fake News Detector
 
-Fake news detection using Blockchain
+Fake news detection using Ethereum Blockchain
 
 ## Features
 - ▲ Frontend built on [React.js](https://github.com/facebook/react)
