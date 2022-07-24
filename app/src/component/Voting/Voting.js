@@ -125,22 +125,22 @@ export default class Voting extends Component {
   };
 
   renderNewss = (news) => {
-    const castVote = async (id) => {
+    const castVote = async (id, isFake) => {
       await this.state.newsDetectionInstance.methods
-        .vote(id)
+        .vote(id, isFake) //todo: add fake vote
         .send({ from: this.state.account, gas: 1000000 });
       window.location.reload();
     };
-    const confirmVote = (id, newsPost) => {
+    const confirmVote = (id, newsPost, isFake) => {
       var r = window.confirm(
         'Vote for ' +
           newsPost +
           ' with Id ' +
           id +
-          '.\nAre you sure is this True news?'
+          `.\nAre you sure is this ${isFake ? 'Fake' : 'True'} news?`
       );
       if (r === true) {
-        castVote(id);
+        castVote(id, isFake);
       }
     };
     return (
@@ -152,8 +152,9 @@ export default class Voting extends Component {
         </div>
         <div className="vote-btn-container">
           <button
-            onClick={() => confirmVote(news.id, news.newsPost)}
-            className="bg-sky-500 hover:bg-sky-700 text-slate font-bold px-10 py-3 ml-2 rounded"
+            onClick={() => confirmVote(news.id, news.newsPost, false)}
+            className="bg-sky-500 hover:bg-sky-700 text-slate font-bold py-3 ml-2 rounded cursor-pointer"
+            style={{ width: 200 }}
             disabled={
               !this.state.currentEvaluator.isRegistered ||
               !this.state.currentEvaluator.isVerified ||
@@ -161,6 +162,18 @@ export default class Voting extends Component {
             }
           >
             Vote as Authentic
+          </button>
+          <button
+            onClick={() => confirmVote(news.id, news.newsPost, true)}
+            className="bg-pink-500 hover:bg-pink-700 text-slate font-bold py-3 ml-2 mt-2 rounded cursor-pointer"
+            style={{ width: 200 }}
+            disabled={
+              !this.state.currentEvaluator.isRegistered ||
+              !this.state.currentEvaluator.isVerified ||
+              this.state.currentEvaluator.hasVoted
+            }
+          >
+            Vote as Fake
           </button>
         </div>
       </div>
@@ -178,12 +191,14 @@ export default class Voting extends Component {
     }
 
     return (
-      <>
+      <div className="md:ml-64 mt-10">
         {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
         <div>
-          {!this.state.isElStarted && !this.state.isElEnded ? (
-            <NotInit />
-          ) : this.state.isElStarted && !this.state.isElEnded ? (
+          {
+					// !this.state.isElStarted && !this.state.isElEnded ? (
+          //   <NotInit />
+          // ) : 
+					this.state.isElStarted && !this.state.isElEnded || true ? (
             <>
               {this.state.currentEvaluator.isRegistered ? (
                 this.state.currentEvaluator.isVerified ? (
@@ -263,7 +278,7 @@ export default class Voting extends Component {
             </>
           ) : null}
         </div>
-      </>
+      </div>
     );
   }
 }

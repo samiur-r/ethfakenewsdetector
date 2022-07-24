@@ -82,6 +82,7 @@ export default class Result extends Component {
           id: news.newsId,
           newsPost: news.newsPost,
           voteCount: news.voteCount,
+					fakeCount: news.fakeCount
         });
       }
 
@@ -114,7 +115,7 @@ export default class Result extends Component {
     }
 
     return (
-      <>
+      <div className="md:ml-64 mt-10">
         {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
         <br />
         <div>
@@ -138,7 +139,7 @@ export default class Result extends Component {
             displayOutcomes(this.state.newss)
           ) : null}
         </div>
-      </>
+      </div>
     );
   }
 }
@@ -149,10 +150,10 @@ function displayWinner(newss) {
     let maxVoteRecived = 0;
     let winnernews = [];
     for (let i = 0; i < newss.length; i++) {
-      if (newss[i].voteCount > maxVoteRecived) {
+      if (newss[i].voteCount - news[i].fakeCount > maxVoteRecived) {
         maxVoteRecived = newss[i].voteCount;
         winnernews = [newss[i]];
-      } else if (newss[i].voteCount === maxVoteRecived) {
+      } else if (newss[i].voteCount - newss[i].fakeCount === maxVoteRecived) {
         winnernews.push(newss[i]);
       }
     }
@@ -183,6 +184,7 @@ export function displayOutcomes(newss) {
         <td>{news.id}</td>
         <td>{news.newsPost}</td>
         <td>{news.voteCount}</td>
+        <td>{news.fakeCount}</td>
       </tr>
     );
   };

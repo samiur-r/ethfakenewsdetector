@@ -154,7 +154,7 @@ export default class Registration extends Component {
       );
     }
     return (
-      <>
+      <div className="md:ml-64 mt-10">
         {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
         {!this.state.isElStarted && !this.state.isElEnded ? (
           <NotInit />
@@ -251,7 +251,7 @@ export default class Registration extends Component {
             ) : null}
           </div>
         )}
-      </>
+      </div>
     );
   }
 }

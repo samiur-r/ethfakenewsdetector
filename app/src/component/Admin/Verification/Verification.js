@@ -178,7 +178,7 @@ export default class Registration extends Component {
       );
     }
     return (
-      <>
+      <div className="md:ml-64 mt-10">
         <NavbarAdmin />
         <div className="container-main">
           <h3 className="text-2xl text-white">Verification</h3>
@@ -200,7 +200,7 @@ export default class Registration extends Component {
             </>
           )}
         </div>
-      </>
+      </div>
     );
   }
 }

@@ -32,6 +32,7 @@ contract newsDetection {
         uint256 newsId;
         string newsPost;
         uint256 voteCount;
+				uint256 fakeCount;
     }
     mapping(uint256 => News) public newsDetails;
 
@@ -45,7 +46,8 @@ contract newsDetection {
             News({
                 newsId: newsCount,
                 newsPost: _newsPost,
-                voteCount: 0
+                voteCount: 0,
+								fakeCount: 0
             });
         newsDetails[newsCount] = newNews;
         newsCount += 1;
@@ -142,12 +144,16 @@ contract newsDetection {
     }
 
     // Vote
-    function vote(uint256 newsId) public {
+    function vote(uint256 newsId, bool isFake) public {
         require(evaluatorDetails[msg.sender].hasVoted == false);
         require(evaluatorDetails[msg.sender].isVerified == true);
         require(start == true);
         require(end == false);
-        newsDetails[newsId].voteCount += 1;
+				if(isFake) {
+					newsDetails[newsId].fakeCount += 1;
+				} else {
+					newsDetails[newsId].voteCount += 1;
+				}
         evaluatorDetails[msg.sender].hasVoted = true;
     }
 
