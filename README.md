@@ -11,6 +11,8 @@ Fake news detection using Ethereum Blockchain
 ## Installation
 
 ```
+git clone https://github.com/samiur-r/ethfakenewsdetector
+cd ethfakenewsdetector
 npm i -g truffle
 truffle compile
 truffle migrate
@@ -18,7 +20,6 @@ truffle migrate
 Open [Ganache](https://trufflesuite.com/ganache/) and import two test accounts into [MetaMask](https://metamask.io/)
 
 ```
-git clone https://github.com/samiur-r/ethfakenewsdetector
 cd ethfakenewsdetector/app
 npm install
 npm start
