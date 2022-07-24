@@ -114,17 +114,17 @@ export default class AddNews extends Component {
       );
     }
     return (
-      <>
+      <div className="md:ml-64 mt-10">
         <NavbarAdmin />
-        <div className="container-main">
-          <h2>Add a new news</h2>
-          <small>Total newss: {this.state.newsCount}</small>
-          <div className="container-item">
+        <div className="container-main w-full">
+          <h3 className="text-2xl text-white">Add a new news</h3>
+          <small>Total news: {this.state.newsCount}</small>
+          <div className="container-item bg-slate-700 rounded w-full">
             <form className="form">
-              <label className={"label-ac"}>
+              <label className="label-ac text-white">
                 NewsPost
                 <input
-                  className={"input-ac"}
+                  className="bg-slate-900 shadow-md rounded p-5 block mt-2 w-full"
                   type="text"
                   placeholder="eg. বৃষ্টির আগেই শেষ সাকিব–ঝড়"
                   value={this.state.newsPost}
@@ -133,9 +133,10 @@ export default class AddNews extends Component {
               </label>
 
               <button
-                className="btn-add"
+                className="bg-sky-500 hover:bg-blue-700 text-white font-bold px-10 py-3 mt-5 ml-2 rounded"
                 disabled={
-                  this.state.newsPost.length < 3 || this.state.newsPost.length > 100
+                  this.state.newsPost.length < 3 ||
+                  this.state.newsPost.length > 100
                 }
                 onClick={this.addNews}
               >
@@ -145,7 +146,7 @@ export default class AddNews extends Component {
           </div>
         </div>
         {loadAdded(this.state.newss)}
-      </>
+      </div>
     );
   }
 }
@@ -153,11 +154,10 @@ export function loadAdded(newss) {
   const renderAdded = (news) => {
     return (
       <>
-        <div className="container-list success">
+        <div className="container-list bg-slate-900 text-sky-600">
           <div
             style={{
               maxHeight: "21px",
-              overflow: "auto",
             }}
           >
             {news.id}. <strong>{news.newsPost}</strong>:{" "}
@@ -168,19 +168,18 @@ export function loadAdded(newss) {
   };
   return (
     <div className="container-main" style={{ borderTop: "1px solid" }}>
-      <div className="container-item info">
-        <center>Newss List</center>
+      <div className="container-item bg-slate-700 text-white">
+        <center>News List</center>
       </div>
       {newss.length < 1 ? (
-        <div className="container-item alert">
+        <div className="container-item border border-sky-600 text-sky-600">
           <center>No news added.</center>
         </div>
       ) : (
         <div
-          className="container-item"
+          className="container-item bg-sky-700"
           style={{
             display: "block",
-            backgroundColor: "#DDFFFF",
           }}
         >
           {newss.map(renderAdded)}

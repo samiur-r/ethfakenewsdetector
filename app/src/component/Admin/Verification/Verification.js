@@ -181,14 +181,20 @@ export default class Registration extends Component {
       <>
         <NavbarAdmin />
         <div className="container-main">
-          <h3>Verification</h3>
-          <small>Total evaluators: {this.state.evaluators.length}</small>
+          <h3 className="text-2xl text-white">Verification</h3>
+          <small className="text-lg text-grey">
+            Total evaluators: {this.state.evaluators.length}
+          </small>
           {this.state.evaluators.length < 1 ? (
-            <div className="container-item info">None has registered yet.</div>
+            <div className="container-item bg-slate-900 p-5 text-sky-600">
+              None has registered yet.
+            </div>
           ) : (
             <>
-              <div className="container-item info">
-                <center>List of registered evaluators</center>
+              <div className="container-item bg-slate-900 p-5 text-white">
+                <center className="text-sky-600">
+                  List of registered evaluators
+                </center>
               </div>
               {this.state.evaluators.map(this.renderUnverifiedEvaluators)}
             </>

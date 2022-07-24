@@ -1,18 +1,18 @@
 // Node modules
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 // Components
-import Navbar from "../Navbar/Navigation";
-import NavbarAdmin from "../Navbar/NavigationAdmin";
-import NotInit from "../NotInit";
+import Navbar from '../Navbar/Navigation';
+import NavbarAdmin from '../Navbar/NavigationAdmin';
+import NotInit from '../NotInit';
 
 // Contract
-import getWeb3 from "../../getWeb3";
-import newsDetection from "../../contracts/newsDetection.json";
+import getWeb3 from '../../getWeb3';
+import newsDetection from '../../contracts/newsDetection.json';
 
 // CSS
-import "./Voting.css";
+import './Voting.css';
 
 export default class Voting extends Component {
   constructor(props) {
@@ -39,7 +39,7 @@ export default class Voting extends Component {
   componentDidMount = async () => {
     // refreshing once
     if (!window.location.hash) {
-      window.location = window.location + "#loaded";
+      window.location = window.location + '#loaded';
       window.location.reload();
     }
     try {
@@ -72,9 +72,13 @@ export default class Voting extends Component {
       this.setState({ newsCount: newsCount });
 
       // Get start and end values
-      const start = await this.state.newsDetectionInstance.methods.getStart().call();
+      const start = await this.state.newsDetectionInstance.methods
+        .getStart()
+        .call();
       this.setState({ isElStarted: start });
-      const end = await this.state.newsDetectionInstance.methods.getEnd().call();
+      const end = await this.state.newsDetectionInstance.methods
+        .getEnd()
+        .call();
       this.setState({ isElEnded: end });
 
       // Loading newss details
@@ -105,7 +109,9 @@ export default class Voting extends Component {
       });
 
       // Admin account and verification
-      const admin = await this.state.newsDetectionInstance.methods.getAdmin().call();
+      const admin = await this.state.newsDetectionInstance.methods
+        .getAdmin()
+        .call();
       if (this.state.account === admin) {
         this.setState({ isAdmin: true });
       }
@@ -127,7 +133,11 @@ export default class Voting extends Component {
     };
     const confirmVote = (id, newsPost) => {
       var r = window.confirm(
-        "Vote for " + newsPost + " with Id " + id + ".\nAre you sure is this True news?"
+        'Vote for ' +
+          newsPost +
+          ' with Id ' +
+          id +
+          '.\nAre you sure is this True news?'
       );
       if (r === true) {
         castVote(id);
@@ -135,7 +145,7 @@ export default class Voting extends Component {
     };
     return (
       <div className="container-item">
-        <div className="news-info">
+        <div className="news-info text-white">
           <h2>
             {news.newsPost} <small>#{news.id}</small>
           </h2>
@@ -143,7 +153,7 @@ export default class Voting extends Component {
         <div className="vote-btn-container">
           <button
             onClick={() => confirmVote(news.id, news.newsPost)}
-            className="vote-bth"
+            className="bg-sky-500 hover:bg-sky-700 text-slate font-bold px-10 py-3 ml-2 rounded"
             disabled={
               !this.state.currentEvaluator.isRegistered ||
               !this.state.currentEvaluator.isVerified ||
@@ -178,42 +188,41 @@ export default class Voting extends Component {
               {this.state.currentEvaluator.isRegistered ? (
                 this.state.currentEvaluator.isVerified ? (
                   this.state.currentEvaluator.hasVoted ? (
-                    <div className="container-item success">
+                    <div className="container-item bg-slate-700">
                       <div>
-                        <strong>You've casted your vote for authentic news.</strong>
+                        <strong className="text-white text-md">
+                          You've casted your vote for authentic news.
+                        </strong>
                         <p />
                         <center>
-                          <Link
-                            to="/Outcomes"
-                            style={{
-                              color: "black",
-                              textDecoration: "underline",
-                            }}
-                          >
+                          <Link to="/Outcomes" className="text-white underline">
                             See Outcomes
                           </Link>
                         </center>
                       </div>
                     </div>
                   ) : (
-                    <div className="container-item info">
+                    <div className="container-item bg-slate-700 text-white">
                       <center>vote for true news.</center>
                     </div>
                   )
                 ) : (
-                  <div className="container-item attention">
+                  <div className="container-item bg-slate-700 text-sky-600">
                     <center>For admin verification please wait!!</center>
                   </div>
                 )
               ) : (
                 <>
-                  <div className="container-item attention">
+                  <div className="container-item bg-sky-600 text-white text-md">
                     <center>
-                      <p>You're not registered as an evaluator. You have to register first.</p>
+                      <p>
+                        You're not registered as an evaluator. You have to
+                        register first.
+                      </p>
                       <br />
                       <Link
                         to="/Registration"
-                        style={{ color: "black", textDecoration: "underline" }}
+                        className="text-slate-600 underline"
                       >
                         Registration Page
                       </Link>
@@ -222,19 +231,16 @@ export default class Voting extends Component {
                 </>
               )}
               <div className="container-main">
-                <h2>News</h2>
+                <h3 className="text-2xl text-white">News</h3>
                 <small>Total news: {this.state.newss.length}</small>
                 {this.state.newss.length < 1 ? (
-                  <div className="container-item attention">
+                  <div className="container-item bg-slate-700">
                     <center>Not one to vote for.</center>
                   </div>
                 ) : (
                   <>
                     {this.state.newss.map(this.renderNewss)}
-                    <div
-                      className="container-item"
-                      style={{ border: "1px solid black" }}
-                    >
+                    <div className="container-item text-sky-600 border border-sky-600">
                       <center>That is all news.</center>
                     </div>
                   </>
@@ -243,14 +249,13 @@ export default class Voting extends Component {
             </>
           ) : !this.state.isElStarted && this.state.isElEnded ? (
             <>
-              <div className="container-item attention">
+              <div className="container-item bg-slate-700">
                 <center>
-                  <h3>The news Detection ended.</h3>
+                  <h3 className="text-sky-600 text-lg">
+                    The news Detection ended.
+                  </h3>
                   <br />
-                  <Link
-                    to="/Outcomes"
-                    style={{ color: "black", textDecoration: "underline" }}
-                  >
+                  <Link to="/Outcomes" className="text-white underline">
                     See Outcomes
                   </Link>
                 </center>
