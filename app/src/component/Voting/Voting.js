@@ -127,7 +127,7 @@ export default class Voting extends Component {
   renderNewss = (news) => {
     const castVote = async (id, isFake) => {
       await this.state.newsDetectionInstance.methods
-        .vote(id, isFake) //todo: add fake vote
+        .vote(id, isFake)
         .send({ from: this.state.account, gas: 1000000 });
       window.location.reload();
     };
@@ -194,11 +194,9 @@ export default class Voting extends Component {
       <div className="md:ml-64 mt-10">
         {this.state.isAdmin ? <NavbarAdmin /> : <Navbar />}
         <div>
-          {
-					// !this.state.isElStarted && !this.state.isElEnded ? (
-          //   <NotInit />
-          // ) : 
-					this.state.isElStarted && !this.state.isElEnded || true ? (
+          {!this.state.isElStarted && !this.state.isElEnded ? (
+            <NotInit />
+          ) : this.state.isElStarted && !this.state.isElEnded ? (
             <>
               {this.state.currentEvaluator.isRegistered ? (
                 this.state.currentEvaluator.isVerified ? (
