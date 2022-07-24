@@ -150,7 +150,7 @@ function displayWinner(newss) {
     let maxVoteRecived = 0;
     let winnernews = [];
     for (let i = 0; i < newss.length; i++) {
-      if (newss[i].voteCount - news[i].fakeCount > maxVoteRecived) {
+      if (newss[i].voteCount - newss[i].fakeCount > maxVoteRecived) {
         maxVoteRecived = newss[i].voteCount;
         winnernews = [newss[i]];
       } else if (newss[i].voteCount - newss[i].fakeCount === maxVoteRecived) {
