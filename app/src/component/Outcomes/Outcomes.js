@@ -82,7 +82,7 @@ export default class Result extends Component {
           id: news.newsId,
           newsPost: news.newsPost,
           voteCount: news.voteCount,
-					fakeCount: news.fakeCount
+          fakeCount: news.fakeCount,
         });
       }
 
@@ -183,8 +183,12 @@ export function displayOutcomes(newss) {
       <tr>
         <td>{news.id}</td>
         <td>{news.newsPost}</td>
-        <td>{news.voteCount}</td>
-        <td>{news.fakeCount}</td>
+        <td>{`Authentic: (${news.voteCount} / (${news.voteCount} + ${
+          news.fakeCount
+        })) * ${100}`}</td>
+        <td>{`Fake: (${news.fakeCount} / (${news.voteCount} + ${
+          news.fakeCount
+        })) * ${100}`}</td>
       </tr>
     );
   };
